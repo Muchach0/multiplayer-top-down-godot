@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wand_fire.png-a533bcac51d0548230a346eff2e998a4.stex"
+path="res://.import/wand_fire.png-9d334786731fc7d4e53cb24b91d3b20b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://weapons/wand_fire.png"
-dest_files=[ "res://.import/wand_fire.png-a533bcac51d0548230a346eff2e998a4.stex" ]
+source_file="res://prefab/weapons/wand_fire.png"
+dest_files=[ "res://.import/wand_fire.png-9d334786731fc7d4e53cb24b91d3b20b.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire.png-311399ba77c649e4ad025671eb2865cf.stex"
+path="res://.import/particle_bullet.png-4878dd30ac23d0200b6356fd37257156.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://weapons/fire.png"
-dest_files=[ "res://.import/fire.png-311399ba77c649e4ad025671eb2865cf.stex" ]
+source_file="res://prefab/weapons/particle_bullet.png"
+dest_files=[ "res://.import/particle_bullet.png-4878dd30ac23d0200b6356fd37257156.stex" ]
 
 [params]
 

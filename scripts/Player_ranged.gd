@@ -22,7 +22,7 @@ func init(_index_char):
 
 # Use sync because it will be called everywhere, including locally
 remotesync func shoot(bomb_name, pos, direction, by_who):
-	var bomb = preload("res://weapons/Arrow.tscn").instance()
+	var bomb = preload("res://prefab/weapons/Arrow.tscn").instance()
 	bomb.set_name(bomb_name) # Ensure unique name for the bomb
 	bomb.position = pos
 	bomb.from_player_id = by_who

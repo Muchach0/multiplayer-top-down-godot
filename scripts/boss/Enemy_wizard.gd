@@ -24,7 +24,7 @@ func attack_spell_1(player_direction: Vector2) -> void:
 	print_debug("Enemy_wizard.gd - attack_spell_1 - attacking with spell 1")
 	animation_player_action_enemy.stop(true)
 	animation_player_action_enemy.play("Spell1")
-	var bomb = preload("res://weapons/Arrow_enemy.tscn").instance()
+	var bomb = preload("res://prefab/weapons/Arrow_enemy.tscn").instance()
 	bomb.position = self.global_position
 	bomb.direction = player_direction
 	# No need to set network master to
@@ -41,7 +41,7 @@ func attack_spell_2_lava(position_player: Vector2) -> void:
 	var spacing = 100  # Adjust the spacing between fireballs as needed
 
 	for i in range(nb_of_lavas_to_spawn):
-		var lava_pit = preload("res://scenes/ennemies/Fireball2.tscn").instance()
+		var lava_pit = preload("res://prefab/weapons/Lava_spell.tscn").instance()
 		lava_pit.position = global_position + direction * spacing * (i+1)
 		# No need to set network master to
 		get_node("../..").add_child(lava_pit)

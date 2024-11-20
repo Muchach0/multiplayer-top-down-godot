@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/chat_gpt_shield_1_fixed.png" type="Texture" id=2]
 [ext_resource path="res://scenes/new_theme.tres" type="Theme" id=3]
 [ext_resource path="res://assets/sword_ice.png" type="Texture" id=4]
-[ext_resource path="res://weapons/wand_fire.png" type="Texture" id=5]
+[ext_resource path="res://prefab/weapons/wand_fire.png" type="Texture" id=5]
 [ext_resource path="res://assets/montserrat.otf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=5]

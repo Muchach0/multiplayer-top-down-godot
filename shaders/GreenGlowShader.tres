@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform bool use_alt_color = false; // Boolean toggle
+
+void fragment() {
+    vec4 tex_color = texture(TEXTURE, UV);
+	vec4 red_color = tex_color;
+	red_color.g = 1.0;
+	vec4 color = use_alt_color ? red_color : tex_color;
+    COLOR = color;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/use_alt_color = false

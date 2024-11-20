@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://shaders/FireBall.tres" type="Material" id=1]
+[ext_resource path="res://shaders/FireBall2.tres" type="Material" id=2]
+[ext_resource path="res://weapons/Lava.gd" type="Script" id=3]
+[ext_resource path="res://nodes/HitBox.gd" type="Script" id=5]
+[ext_resource path="res://assets/full_circle_opac.png" type="Texture" id=7]
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+
+void fragment() {
+	COLOR.rgb = vec3(1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 61.0
+height = 0.0
+
+[sub_resource type="ShaderMaterial" id=11]
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 62.0725
+
+[node name="Fireball" type="Node2D"]
+position = Vector2( 100, 150 )
+scale = Vector2( 0.75, 0.75 )
+script = ExtResource( 3 )
+lifetime = 6.0
+
+[node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 2 )
+position = Vector2( 1, 0 )
+texture = ExtResource( 7 )
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+self_modulate = Color( 0.560784, 0.870588, 0.364706, 1 )
+material = SubResource( 10 )
+shape = SubResource( 8 )
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TimerTransformInLava" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="TimerAttack" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="ImpactDetector" type="Area2D" parent="."]
+position = Vector2( 45, 0 )
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ImpactDetector"]
+self_modulate = Color( 0.690196, 0.188235, 0.360784, 1 )
+material = SubResource( 11 )
+position = Vector2( -45, 0 )
+shape = SubResource( 12 )
+
+[node name="SpriteLava" type="Sprite" parent="."]
+visible = false
+material = ExtResource( 1 )
+position = Vector2( 2, -1.49012e-08 )
+scale = Vector2( 1.21875, 1.19141 )
+texture = ExtResource( 7 )

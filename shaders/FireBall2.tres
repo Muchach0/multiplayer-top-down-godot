@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float red : hint_range(0.0, 1.0); 
+
+
+void fragment() {
+	vec4 tex_color = texture(TEXTURE, UV);
+	
+	vec4 red_color = tex_color;
+	red_color.r = red;
+	    
+    // Only modify the alpha (opacity) of the non-transparent sprite pixels
+    if (red_color.a > 0.0) {
+        red_color.a = red; // Apply the opacity modification
+    }
+
+    COLOR = red_color;
+}
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/red = 0.507

@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform bool use_red_color = true; // Boolean toggle
+uniform bool use_green_color = false; // Boolean toggle
+
+void fragment() {
+	vec4 tex_color = texture(TEXTURE, UV);
+	
+	vec4 red_color = tex_color;
+	red_color.r = 1.0;
+
+	vec4 green_color = tex_color;
+	green_color.g = 1.0;
+	
+	// if we use green, use the green color
+	vec4 color = use_green_color ? green_color : tex_color;
+
+	// if we use red, we override the color to red
+	color = use_red_color ? red_color : color;
+
+    COLOR = color;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/use_red_color = false
+shader_param/use_green_color = false

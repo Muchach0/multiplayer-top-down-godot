@@ -1,0 +1,52 @@
+steps:
+# Docker build
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/just-amp-373710/multiplayer-ranged/godot-server:v1', '-f', 'builds/Dockerfile-server', '.' ]
+  id: build
+
+# Docker Push
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/just-amp-373710/multiplayer-ranged/godot-server:v1']
+
+# Deploy the server image in a cloud run container
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'multiplayer-ranged-server'
+  - '--image'
+  - 'europe-west1-docker.pkg.dev/just-amp-373710/multiplayer-ranged/godot-server:v1'
+  - '--region'
+  - 'europe-west1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+  - '--max-instances=1'
+  - '--port'
+  - '10567'
+
+# ====================================== CLIENT SECTION ======================================
+# Docker build
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/just-amp-373710/multiplayer-ranged/godot-client:v1', '-f', 'builds/Dockerfile-client', '.' ]
+
+# Docker Push
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/just-amp-373710/multiplayer-ranged/godot-client:v1']
+
+# Deploy the image in a cloud run container
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'multiplayer-ranged-client'
+  - '--image'
+  - 'europe-west1-docker.pkg.dev/just-amp-373710/multiplayer-ranged/godot-client:v1'
+  - '--region'
+  - 'europe-west1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+  - '--max-instances=1'
+  - '--port'
+  - '80'

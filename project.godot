@@ -59,20 +59,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://nodes/HurtBox.gd"
 }, {
-"base": "Projectile",
+"base": "Reference",
 "class": "Lava",
 "language": "GDScript",
-"path": "res://weapons/Lava.gd"
+"path": "res://prefab/weapons/Lava.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "MyPlayer",
 "language": "GDScript",
 "path": "res://scripts/player.gd"
 }, {
-"base": "Node2D",
+"base": "Reference",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://weapons/Projectile.gd"
+"path": "res://prefab/weapons/Projectile.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -109,7 +109,7 @@ config/description="A multiplayer implementation of the classical bomberman game
 One of the players should press 'host', while the other
 should type in his address and press 'play'."
 run/main_scene="res://scenes/lobby.tscn"
-config/icon="res://weapons/wand_fire.png"
+config/icon="res://prefab/weapons/wand_fire.png"
 
 [autoload]
 

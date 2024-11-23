@@ -1,7 +1,7 @@
 class_name EnemyStateMachine
 extends Node
 
-export var initial_state : String = ""
+export var initial_state : String = "EnemyIdle"
 
 var current_state : State
 var states : Dictionary = {}

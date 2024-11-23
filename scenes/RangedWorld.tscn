@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/tileset_invisible_walls.svg" type="Texture" id=8]
 [ext_resource path="res://prefab/enemies/Spider_1.tscn" type="PackedScene" id=9]
 [ext_resource path="res://prefab/enemies/Wizard_1.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scripts/boss/Enemy_wizard.gd" type="Script" id=11]
+[ext_resource path="res://prefab/enemies/Spider_Cocoon.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 44
@@ -698,9 +698,11 @@ position = Vector2( 3163, -311 )
 [node name="Enemy_wizard_1" parent="Enemies" instance=ExtResource( 10 )]
 position = Vector2( 3212, 1190 )
 
-[node name="Enemy_wizard_2" parent="Enemies" instance=ExtResource( 10 )]
-position = Vector2( 697, -26 )
-script = ExtResource( 11 )
+[node name="Spider_Cocoon_1" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 3233, 161 )
+
+[node name="Spider_Cocoon_2" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 1268, 1826 )
 
 [node name="TileMap-invisible-walls" type="TileMap" parent="."]
 visible = false

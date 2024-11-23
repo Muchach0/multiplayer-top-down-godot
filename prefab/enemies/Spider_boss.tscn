@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=31 format=2]
 
-[ext_resource path="res://assets/spider/spider_leg_left.png" type="Texture" id=1]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_leg_1.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://nodes/HurtBox.gd" type="Script" id=3]
 [ext_resource path="res://shaders/RedAndGreenGlowShader.tres" type="Material" id=4]
@@ -9,8 +9,12 @@
 [ext_resource path="res://scripts/states/EnemyIdle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/states/EnemyFollowing.gd" type="Script" id=8]
 [ext_resource path="res://scripts/states/Enemy_state_machine.gd" type="Script" id=9]
-[ext_resource path="res://assets/spider/spider_leg_right.png" type="Texture" id=10]
-[ext_resource path="res://assets/spider/spider_body.png" type="Texture" id=12]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_body.png" type="Texture" id=10]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_leg_4.png" type="Texture" id=11]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_leg_3.png" type="Texture" id=12]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_leg_5.png" type="Texture" id=13]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_leg_6.png" type="Texture" id=14]
+[ext_resource path="res://assets/spider/boss_spider/spider_boss_leg_2.png" type="Texture" id=15]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -290,50 +294,50 @@ material = ExtResource( 4 )
 [node name="Body" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-texture = ExtResource( 12 )
+texture = ExtResource( 10 )
 
 [node name="Leg1" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-position = Vector2( -42.643, -8.94762 )
+position = Vector2( -127, 39 )
 texture = ExtResource( 1 )
 offset = Vector2( -8.35703, 12.9476 )
 
 [node name="Leg2" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-position = Vector2( -36, 11 )
-texture = ExtResource( 1 )
+position = Vector2( -105, 93 )
+texture = ExtResource( 15 )
 offset = Vector2( -9, 13 )
 
 [node name="Leg3" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-position = Vector2( -20, 18 )
-texture = ExtResource( 1 )
+position = Vector2( -50, 105 )
+texture = ExtResource( 12 )
 offset = Vector2( -8, 17 )
 
 [node name="Leg4" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-position = Vector2( 18, 19 )
-texture = ExtResource( 10 )
+position = Vector2( 47, 104 )
+texture = ExtResource( 11 )
 offset = Vector2( 7, 19 )
 
 [node name="Leg5" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-position = Vector2( 35, 9 )
+position = Vector2( 101, 91 )
 z_index = -1
-texture = ExtResource( 10 )
+texture = ExtResource( 13 )
 offset = Vector2( 7, 17 )
 
 [node name="Leg6" type="Sprite" parent="Sprite"]
 material = ExtResource( 4 )
 use_parent_material = true
-position = Vector2( 44, -11 )
+position = Vector2( 125, 36 )
 z_index = -2
-texture = ExtResource( 10 )
+texture = ExtResource( 14 )
 offset = Vector2( 7, 16 )
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -390,6 +394,7 @@ value = 4.0
 wait_time = 2.0
 
 [node name="TimerGlow" type="Timer" parent="."]
+wait_time = 0.25
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -399,6 +404,7 @@ shape = SubResource( 15 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 9 )
+initial_state = "EnemyIdle"
 
 [node name="EnemyIdle" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )

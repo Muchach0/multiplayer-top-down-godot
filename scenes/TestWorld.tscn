@@ -1,19 +1,11 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/space_background.png" type="Texture" id=1]
-[ext_resource path="res://prefab/enemies/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefab/enemies/Spider_Cocoon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/montserrat.otf" type="DynamicFontData" id=3]
-[ext_resource path="res://prefab/enemies/Spider_1.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefab/enemies/Wizard_1.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tileset/tileset_floating_dungeon.png" type="Texture" id=7]
-[ext_resource path="res://prefab/enemies/Enemy_armor_2.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/spider/cocoon1.png" type="Texture" id=9]
 [ext_resource path="res://prefab/players/Player_ranged.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/spider/cocoon3.png" type="Texture" id=11]
-[ext_resource path="res://assets/spider/cocoon2.png" type="Texture" id=12]
-[ext_resource path="res://assets/DALL·E 2024-11-09 22.39.02 - A cartoonish 2D sprite of a boss enemy resembling a giant menacing spider, designed specifically for a top-down perspective in a game. The spider has .webp" type="Texture" id=13]
-[ext_resource path="res://assets/spider/Spider_Den_Tier_1.png" type="Texture" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 44
@@ -266,54 +258,10 @@ tile_data = PoolIntArray( -2, 2, 0, -1, 2, 0, -65536, 2, 0, -65535, 2, 0, -65534
 [node name="TargetPoint" type="Node2D" parent="."]
 position = Vector2( 354, 270 )
 
-[node name="Dall·E2024-11-09223902-ACartoonish2dSpriteOfABossEnemyResemblingAGiantMenacingSpider,DesignedSpecificallyForATop-downPerspectiveInAGameTheSpiderHas" type="Sprite" parent="."]
-position = Vector2( 828.625, -349.625 )
-scale = Vector2( 0.658935, 0.658935 )
-texture = ExtResource( 13 )
-
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 74, 309 )
-
-[node name="Cocoon1" type="Sprite" parent="Enemies"]
-position = Vector2( 569, 123 )
-scale = Vector2( 0.272834, 0.272834 )
-texture = ExtResource( 9 )
-
-[node name="Cocoon2" type="Sprite" parent="Enemies"]
-position = Vector2( 790, 114 )
-scale = Vector2( 0.272834, 0.272834 )
-texture = ExtResource( 12 )
-
-[node name="Cocoon3" type="Sprite" parent="Enemies"]
-position = Vector2( 966.125, 114.37 )
-scale = Vector2( 0.255013, 0.255013 )
-texture = ExtResource( 11 )
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 839, 305 )
-
-[node name="Enemy4" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 574, 292 )
-
-[node name="Enemy5" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1010, 292 )
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 223, 281 )
 
 [node name="Player_ranged" parent="." instance=ExtResource( 10 )]
 position = Vector2( 949, 448 )
-stunned = null
-
-[node name="Enemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( 128, 117 )
-
-[node name="Enemy2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 545, 460 )
-
-[node name="Enemy3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 240, 301 )
-
-[node name="SpiderDenTier1" type="Sprite" parent="."]
-position = Vector2( 411, 128 )
-scale = Vector2( 0.613201, 0.613201 )
-texture = ExtResource( 14 )

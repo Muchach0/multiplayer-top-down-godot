@@ -1,26 +1,41 @@
-extends Node2D
+extends Enemy
+class_name EnemySpawner
+
+# Class to spawn enemies
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-onready var timer_spawner := $TimerSpawner
-var enemy_scene = null
-# Called when the node enters the scene tree for the first time.
+# Override the _ready function from the Enemy script
 func _ready():
-	enemy_scene = load("res://scenes/Enemy.tscn")
-	timer_spawner.connect("timeout", self, "spawn_ennemy")
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func spawn_ennemy() -> void:
+remotesync func spawn_ennemy():
 	print_debug("EnemySpawner.gd - spawn_ennemy() - spanning an ennemy")
-	var enemy = enemy_scene.instance()
+	var enemy = preload("res://prefab/enemies/Spider_1.tscn").instance()
+	enemy.set_name("Spider_spawned_1")
 	enemy.position = position
-	# add_child(enemy)
-	# No need to set network master to eme,y, will be owned by server by default
 	get_node("..").add_child(enemy)
+
+
+#================ ATTACK PART ================
+func attack_landed():
+	print_debug("EnemySpawner.gd - attack_landed - setting up the cooldown")
+	is_attack_on_cooldown = true
+	timer_attack_cooldown.start()
+
+# Signal sent from the State EnemyAttackingDistance: 'attack_send'
+func _on_EnemyAttackingDistance_attack_send(_player_direction: Vector2, _position_player: Vector2) -> void:
+	print_debug("EnemySpawner.gd - attack - attacking")
+	
+	if EventBus.is_in_network_mode():
+		if is_network_master():
+			rpc("spawn_ennemy") # Spawning the enemy from the server
+	else:
+		spawn_ennemy()
+	
+	attack_landed()
+
+
+func reset_cooldown(): # Reseting attack cooldown when the timer is finished
+	print_debug("EnemySpawner.gd - reset_cooldown - reseting cooldown")
+	is_attack_on_cooldown = false

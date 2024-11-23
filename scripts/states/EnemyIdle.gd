@@ -10,7 +10,9 @@ func _on_Area2D_body_entered(body):
 		enemy.player = body
 
 		# Handle different types of ennemies State
-		if enemy is EnemyWizard:
+		# Check if the node StateMachine has a state "EnemyAttackingDistance"
+		if enemy.get_node("StateMachine").states.has("EnemyAttackingDistance".to_lower()):
+			print_debug("EnemyIdle.gd - _on_Area2D_body_entered - Player entered the area - Transitioning to EnemyAttackingDistance")
 			emit_signal("transitioned", self, "EnemyAttackingDistance")
 		else:
 			emit_signal("transitioned", self, "EnemyFollowing")

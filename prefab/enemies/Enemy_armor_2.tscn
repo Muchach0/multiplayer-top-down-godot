@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/chat_gpt_armor_2_fixed_v2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scripts/states/EnemyIdle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/states/EnemyFollowing.gd" type="Script" id=8]
 [ext_resource path="res://scripts/states/Enemy_state_machine.gd" type="Script" id=9]
+[ext_resource path="res://prefab/components/HealthComponent.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -108,12 +109,6 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.188235, 0.372549, 0.141176, 1 )
-
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.623529, 0.0666667, 0.0666667, 1 )
-
 [sub_resource type="CircleShape2D" id=15]
 radius = 725.069
 
@@ -166,17 +161,6 @@ anims/RESET = SubResource( 18 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 
-[node name="LifeUIBar" type="ProgressBar" parent="."]
-margin_left = -36.0
-margin_top = -79.0
-margin_right = 44.0
-margin_bottom = -65.0
-custom_styles/fg = SubResource( 13 )
-custom_styles/bg = SubResource( 14 )
-max_value = 5.0
-step = 1.0
-value = 4.0
-
 [node name="TimerAttack" type="Timer" parent="."]
 wait_time = 2.0
 
@@ -190,7 +174,6 @@ shape = SubResource( 15 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 9 )
-initial_state = "EnemyIdle"
 
 [node name="EnemyIdle" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
@@ -200,3 +183,6 @@ script = ExtResource( 8 )
 
 [node name="EnemyDying" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
+
+[node name="HealthComponent" parent="." instance=ExtResource( 10 )]
+position = Vector2( -1, -93 )

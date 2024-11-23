@@ -7,10 +7,13 @@ const DEFAULT_SCORE = 1
 onready var animation_player_action_player = $AnimationPlayerActionPlayer # for the action of the player on the enemy (hit, die)
 onready var animation_player_action_enemy = $AnimationPlayerActionEnemy # for all the actions of the enemy (move, attack, spells)
 
-onready var life_ui_bar = $LifeUIBar
 onready var timer := $Timer # timer to queue_free the enemy on dying
 onready var timer_glow := $TimerGlow
 onready var collision_shape := $CollisionShape2D
+
+# onready var toto:= $toto if has_node("toto") else null # 
+onready var health_component := $HealthComponent if has_node("HealthComponent") else null
+
 # onready var world = get_node("/root/World")
 onready var sprite := $Sprite
 export var should_flip_sprite: bool = false
@@ -42,8 +45,9 @@ func _ready() -> void:
 	timer.connect("timeout", self, "queue_free") # When timer expired, free the ennemy
 	timer_glow.connect("timeout", self, "stop_glow") # When timer expired, stop glowing
 	health = MAX_DEFAULT_HEALTH
-	life_ui_bar.max_value = MAX_DEFAULT_HEALTH
-	life_ui_bar.value = MAX_DEFAULT_HEALTH
+
+	if health_component != null:
+		health_component.init_life_bar(MAX_DEFAULT_HEALTH)
 	# animation_player_action_player.play("Idle")
 
 	# Duplicate the shader to make individual modification
@@ -61,9 +65,6 @@ func flip_sprite(flip: bool) -> void:
 		child_sprite.flip_h = flip 
 
 # ================ TAKING DAMAGE PART ================
-func update_life_bar() -> void:
-	life_ui_bar.value = health
-
 func stop_glow() -> void:
 	sprite.material.set_shader_param("use_red_color", false)
 	sprite.material.set_shader_param("use_green_color", false)
@@ -82,7 +83,11 @@ remotesync func sync_damage(damage: int, from_player_id:int, health_from_server:
 	animation_player_action_player.stop(true)
 	animation_player_action_player.play("Hit")
 	health -= damage
-	update_life_bar()
+	
+	# Check if health_component is null or not:
+	if health_component != null:
+		health_component.update_life_bar(health, damage)
+	
 	start_red_glow()
 	if health <= 0:
 		# Emit signal from state machine

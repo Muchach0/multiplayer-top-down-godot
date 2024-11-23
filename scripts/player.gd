@@ -24,7 +24,7 @@ export var stunned = false
 
 onready var _pivot := $Pivot # Pivot to rotate --> this is used to rotate the player sprite, (so not including the UI)
 onready var shoot_position := $Pivot/ShootPosition 
-onready var life_ui_bar = $LifeUIBar
+onready var health_component := $HealthComponent
 
 # Shader part
 onready var timer_glow := $TimerGlow
@@ -51,8 +51,7 @@ func _ready():
 	puppet_pos = position
 	EventBus.connect("game_ended_on_server", self, "_on_game_ended_on_server")
 	
-	life_ui_bar.max_value = MAX_HEALTH
-	life_ui_bar.value = MAX_HEALTH
+	health_component.init_life_bar(MAX_HEALTH)
 
 	# Shader part
 	timer_glow.connect("timeout", self, "stop_glow") # When timer expired, stop glowing
@@ -255,7 +254,7 @@ remotesync func exploded(_damage, player_id):
 
 	if EventBus.is_in_network_mode(): # This is temporary as in local mode we cannot test yet score update / game over
 		EventBus.emit_signal("modify_health", player_id, current_health)
-	life_ui_bar.value = current_health
+	health_component.update_life_bar(current_health, _damage)
 
 	# Shader part - glowing in red when taking damage
 	sprite.material.set_shader_param("use_red_color", true)

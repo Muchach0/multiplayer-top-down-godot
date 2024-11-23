@@ -9,7 +9,7 @@
 [ext_resource path="res://tileset/tileset_floating_dungeon.png" type="Texture" id=7]
 [ext_resource path="res://assets/tileset_invisible_walls.svg" type="Texture" id=8]
 [ext_resource path="res://prefab/enemies/Spider_1.tscn" type="PackedScene" id=9]
-[ext_resource path="res://prefab/enemies/Wizard_1.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefab/enemies/boss/Wizard_1.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefab/enemies/Spider_Cocoon.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=1]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/HealthComponent.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.188235, 0.372549, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.623529, 0.0666667, 0.0666667, 1 )
+
+[node name="HealthComponent" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="LifeUIBar" type="ProgressBar" parent="."]
+margin_left = -55.0
+margin_top = -10.0
+margin_right = 59.0
+margin_bottom = 11.0
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
+max_value = 5.0
+step = 1.0
+value = 4.0
+
+[node name="DamageSpawningPoint" type="Node2D" parent="."]
+position = Vector2( 0, -30 )

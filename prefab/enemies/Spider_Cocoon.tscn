@@ -1,7 +1,7 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/spider/Spider_Den_Tier_1.png" type="Texture" id=1]
-[ext_resource path="res://scripts/EnemySpawner.gd" type="Script" id=2]
+[ext_resource path="res://scripts/boss/EnemySpawner.gd" type="Script" id=2]
 [ext_resource path="res://nodes/HurtBox.gd" type="Script" id=3]
 [ext_resource path="res://shaders/RedAndGreenGlowShader.tres" type="Material" id=4]
 [ext_resource path="res://nodes/HitBox.gd" type="Script" id=5]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scripts/states/EnemyIdle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/states/EnemyAttackingDistance.gd" type="Script" id=8]
 [ext_resource path="res://scripts/states/Enemy_state_machine.gd" type="Script" id=9]
+[ext_resource path="res://prefab/components/HealthComponent.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -118,12 +119,6 @@ resource_name = "walk"
 length = 1.5
 loop = true
 
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.188235, 0.372549, 0.141176, 1 )
-
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.623529, 0.0666667, 0.0666667, 1 )
-
 [sub_resource type="CircleShape2D" id=15]
 radius = 725.069
 
@@ -185,17 +180,6 @@ anims/Hit = SubResource( 18 )
 anims/RESET = SubResource( 19 )
 anims/walk = SubResource( 20 )
 
-[node name="LifeUIBar" type="ProgressBar" parent="."]
-margin_left = -96.0
-margin_top = -171.0
-margin_right = 58.0
-margin_bottom = -148.0
-custom_styles/fg = SubResource( 13 )
-custom_styles/bg = SubResource( 14 )
-max_value = 5.0
-step = 1.0
-value = 4.0
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 
@@ -207,6 +191,7 @@ wait_time = 4.0
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource( 15 )
 
 [node name="StateMachine" type="Node" parent="."]
@@ -220,5 +205,9 @@ script = ExtResource( 6 )
 
 [node name="EnemyAttackingDistance" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
+
+[node name="HealthComponent" parent="." instance=ExtResource( 10 )]
+position = Vector2( 0, -168.333 )
+scale = Vector2( 2, 2 )
 
 [connection signal="attack_send" from="StateMachine/EnemyAttackingDistance" to="." method="_on_EnemyAttackingDistance_attack_send"]

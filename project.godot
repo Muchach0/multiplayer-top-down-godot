@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Enemy",
 "class": "EnemySpawner",
 "language": "GDScript",
-"path": "res://scripts/EnemySpawner.gd"
+"path": "res://scripts/boss/EnemySpawner.gd"
 }, {
 "base": "Node",
 "class": "EnemyStateMachine",
@@ -53,6 +53,11 @@ _global_script_classes=[ {
 "class": "EnemyWizard",
 "language": "GDScript",
 "path": "res://scripts/boss/Enemy_wizard.gd"
+}, {
+"base": "Node2D",
+"class": "HealthComponent",
+"language": "GDScript",
+"path": "res://scripts/HealthComponent.gd"
 }, {
 "base": "Area2D",
 "class": "HitBox",
@@ -99,6 +104,7 @@ _global_script_class_icons={
 "EnemyStateMachine": "",
 "EnemyWandering": "",
 "EnemyWizard": "",
+"HealthComponent": "",
 "HitBox": "res://nodes/HitBox.svg",
 "HurtBox": "res://nodes/HurtBox.svg",
 "Lava": "",

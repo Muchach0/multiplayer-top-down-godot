@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/test_animation_body.png" type="Texture" id=1]
 [ext_resource path="res://scripts/boss/Enemy_wizard.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/test_animation_arm.png" type="Texture" id=8]
 [ext_resource path="res://scripts/states/Enemy_state_machine.gd" type="Script" id=9]
 [ext_resource path="res://scripts/states/EnemyAttackingDistance.gd" type="Script" id=10]
+[ext_resource path="res://prefab/components/HealthComponent.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -141,12 +142,6 @@ tracks/0/keys = {
 "values": [ 0.0, -41.2, 0.0 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.188235, 0.372549, 0.141176, 1 )
-
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.623529, 0.0666667, 0.0666667, 1 )
-
 [sub_resource type="CircleShape2D" id=15]
 radius = 725.069
 
@@ -212,17 +207,6 @@ anims/Spell1 = SubResource( 20 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 
-[node name="LifeUIBar" type="ProgressBar" parent="."]
-margin_left = -39.0
-margin_top = -116.0
-margin_right = 41.0
-margin_bottom = -102.0
-custom_styles/fg = SubResource( 13 )
-custom_styles/bg = SubResource( 14 )
-max_value = 5.0
-step = 1.0
-value = 4.0
-
 [node name="TimerAttack" type="Timer" parent="."]
 wait_time = 2.0
 
@@ -239,7 +223,6 @@ shape = SubResource( 15 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 9 )
-initial_state = "EnemyIdle"
 
 [node name="EnemyIdle" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
@@ -249,6 +232,9 @@ script = ExtResource( 6 )
 
 [node name="EnemyAttackingDistance" type="Node" parent="StateMachine"]
 script = ExtResource( 10 )
+
+[node name="HealthComponent" parent="." instance=ExtResource( 11 )]
+position = Vector2( -1, -112 )
 
 [connection signal="timeout" from="TimerLava" to="." method="_on_TimerLava_timeout"]
 [connection signal="attack_send" from="StateMachine/EnemyAttackingDistance" to="." method="_on_EnemyAttackingDistance_attack_send"]

@@ -210,4 +210,30 @@ script = ExtResource( 8 )
 position = Vector2( 0, -168.333 )
 scale = Vector2( 2, 2 )
 
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="1" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 130, 136.667 )
+
+[node name="2" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 0, 140 )
+
+[node name="3" type="Node2D" parent="SpawnPoints"]
+position = Vector2( -138.333, 118.333 )
+
+[node name="4" type="Node2D" parent="SpawnPoints"]
+position = Vector2( -148.333, 0 )
+
+[node name="5" type="Node2D" parent="SpawnPoints"]
+position = Vector2( -118.333, -88.3333 )
+
+[node name="6" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 0, -203.333 )
+
+[node name="7" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 115, -93.3333 )
+
+[node name="8" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 126.667, 1.66667 )
+
 [connection signal="attack_send" from="StateMachine/EnemyAttackingDistance" to="." method="_on_EnemyAttackingDistance_attack_send"]

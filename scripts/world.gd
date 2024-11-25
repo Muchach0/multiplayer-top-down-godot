@@ -4,6 +4,8 @@ var players = null
 var global_score = 0 # Variable to store the global score
 var number_of_enemies = 0 # Variable to store the number of enemies in the scene
 
+onready var enemy_list := $Enemies if has_node("Enemies") else null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	players = gamestate.players
@@ -107,11 +109,16 @@ func player_died(player_id):
 
 	# check if there is still some players
 
+
+# Function called by signal 'one_enemy_die' everytime an enemy dies
 func one_enemy_die():
-	number_of_enemies -= 1
-	print_debug("world.gd - one_enemy_die - one enemy die, number_of_enemies: ", number_of_enemies)
-	if number_of_enemies == 0:
-		# all enemies are dead, game over
-		print("world.gd - one_enemy_die - Game Over - All enemies are dead")
-		EventBus.emit_signal("all_enemies_dead")
-		gamestate.end_game_on_server()
+	if enemy_list == null: # do nothing if the enemy_list is null
+		return
+	
+	if len(enemy_list.get_children()) > 0: # do nothing if still some enemies alive
+		return
+	
+	# all enemies are dead, game over
+	print_debug("world.gd - one_enemy_die - Game Over - All enemies are dead")
+	EventBus.emit_signal("all_enemies_dead")
+	gamestate.end_game_on_server()

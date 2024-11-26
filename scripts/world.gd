@@ -42,6 +42,8 @@ func init_world():
 		var player_scene = null
 		# Instance the player scene based on the character index
 		if char_index == 3:
+			player_scene = load("res://prefab/players/Player_bow.tscn")
+		elif char_index == 4:
 			player_scene = load("res://prefab/players/Player_ranged.tscn")
 		else:
 			player_scene = load("res://prefab/players/player.tscn")

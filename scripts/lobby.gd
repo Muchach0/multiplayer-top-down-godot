@@ -104,3 +104,8 @@ func _on_Char3_pressed():
 	print("Char 3 selected")
 	index_char_selected = 3
 	reset_all_other_character_selected_and_call_gamestate()
+
+func _on_Char4_pressed():
+	print("Char 4 selected")
+	index_char_selected = 4
+	reset_all_other_character_selected_and_call_gamestate()

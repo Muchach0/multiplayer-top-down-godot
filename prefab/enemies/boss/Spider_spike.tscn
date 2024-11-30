@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/spider/boss_spider/spike1.png" type="Texture" id=1]
+[ext_resource path="res://assets/shadow_circle.png" type="Texture" id=2]
+[ext_resource path="res://nodes/HitBox.gd" type="Script" id=3]
+[ext_resource path="res://scripts/boss/Spider_spike.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "appear"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ViewPortRoot/ViewportContainer/Viewport/Spike:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 40, 250 ), Vector2( 40, 250 ), Vector2( 40, 110 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+
+void fragment() {
+	COLOR.rgb = vec3(1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 18.4899, 40.5393 )
+
+[node name="Spike_spider" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Shadow" type="Sprite" parent="."]
+position = Vector2( -453, -209 )
+scale = Vector2( 1, 0.761905 )
+texture = ExtResource( 2 )
+offset = Vector2( 493, 275.625 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/appear = SubResource( 1 )
+
+[node name="HitBox" type="Area2D" parent="."]
+rotation = 0.0134845
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+self_modulate = Color( 0.560784, 0.870588, 0.364706, 1 )
+material = SubResource( 3 )
+position = Vector2( 38.4166, -43.522 )
+rotation = 0.0195828
+shape = SubResource( 4 )
+disabled = true
+
+[node name="ViewPortRoot" type="Node2D" parent="."]
+position = Vector2( 0, -150 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="ViewPortRoot"]
+margin_right = 80.0
+margin_bottom = 150.0
+
+[node name="Viewport" type="Viewport" parent="ViewPortRoot/ViewportContainer"]
+size = Vector2( 80, 150 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Shadow2" type="Sprite" parent="ViewPortRoot/ViewportContainer/Viewport"]
+position = Vector2( -453, -60 )
+scale = Vector2( 1, 0.761905 )
+texture = ExtResource( 2 )
+offset = Vector2( 493, 275.625 )
+
+[node name="Spike" type="Sprite" parent="ViewPortRoot/ViewportContainer/Viewport"]
+position = Vector2( 40, 250 )
+rotation = 3.26202
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )

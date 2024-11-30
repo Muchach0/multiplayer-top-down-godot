@@ -39,6 +39,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/boss/EnemySpawner.gd"
 }, {
+"base": "Enemy",
+"class": "EnemySpiderBoss",
+"language": "GDScript",
+"path": "res://scripts/boss/Enemy_spider_boss.gd"
+}, {
+"base": "State",
+"class": "EnemySpiderStateBossSpawningCocoon",
+"language": "GDScript",
+"path": "res://scripts/boss/EnemySpiderStateBossSpawningCocoon.gd"
+}, {
 "base": "Node",
 "class": "EnemyStateMachine",
 "language": "GDScript",
@@ -69,7 +79,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://nodes/HurtBox.gd"
 }, {
-"base": "Reference",
+"base": "Projectile",
 "class": "Lava",
 "language": "GDScript",
 "path": "res://prefab/weapons/Lava.gd"
@@ -101,6 +111,8 @@ _global_script_class_icons={
 "EnemyFollowing": "",
 "EnemyIdle": "",
 "EnemySpawner": "",
+"EnemySpiderBoss": "",
+"EnemySpiderStateBossSpawningCocoon": "",
 "EnemyStateMachine": "",
 "EnemyWandering": "",
 "EnemyWizard": "",

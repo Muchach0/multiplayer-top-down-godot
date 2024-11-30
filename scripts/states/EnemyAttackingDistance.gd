@@ -11,7 +11,9 @@ func Enter():
 	print("EnemyAttackingDistance.gd - Enter - Entering EnemyAttackingDistance state") 
 	enemy = get_parent().get_parent() # Getting the grand-parent of the script, i.e. the KinematicBody2D node to move it
 	player = enemy.player
-	EventBus.connect("player_died", self, "player_died")
+	# Check if we are already connected to the signal: 
+	if not EventBus.is_connected("player_died", self, "player_died"):
+		EventBus.connect("player_died", self, "player_died")
 # func Update(delta: float):
 
 func flip_sprite_if_necessary():

@@ -41,6 +41,8 @@ onready var hurtbox_collision_shape := $HurtBox/CollisionShape2D
 
 puppet var puppet_position = Vector2()
 
+signal enemy_died
+
 func _ready() -> void:
 	timer.connect("timeout", self, "queue_free") # When timer expired, free the ennemy
 	timer_glow.connect("timeout", self, "stop_glow") # When timer expired, stop glowing
@@ -112,6 +114,7 @@ func die(_from_player_id: int) -> void:
 	hitbox_collision_shape.set_deferred("disabled", true) # Disabling the hitbox when the ennemy is dying
 	hurtbox_collision_shape.set_deferred("disabled", true) # Disabling the hurtbox when the ennemy is dying
 
+	emit_signal("enemy_died")
 	EventBus.emit_signal("one_enemy_die")
 	EventBus.emit_signal("update_score", score_given_by_this_enemy, _from_player_id)
 	# update_score()

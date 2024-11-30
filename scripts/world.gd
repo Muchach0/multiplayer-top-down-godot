@@ -46,7 +46,7 @@ func init_world():
 		elif char_index == 4:
 			player_scene = load("res://prefab/players/Player_ranged.tscn")
 		else:
-			player_scene = load("res://prefab/players/player.tscn")
+			player_scene = load("res://prefab/players/Player_bow.tscn")
 		var player = player_scene.instance()
 		# Instantiate the character sprite chosen
 		player.init(players[p_id]["char_index"])

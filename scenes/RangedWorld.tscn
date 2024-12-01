@@ -691,7 +691,7 @@ position = Vector2( 3078, 1019 )
 position = Vector2( 948, 1842 )
 
 [node name="Spider_boss" parent="Enemies" instance=ExtResource( 12 )]
-position = Vector2( 2759, -340 )
+position = Vector2( 2762, -463 )
 
 [node name="TileMap-invisible-walls" type="TileMap" parent="."]
 visible = false

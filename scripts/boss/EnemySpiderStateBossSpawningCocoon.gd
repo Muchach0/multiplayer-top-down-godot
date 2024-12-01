@@ -11,6 +11,18 @@ const RED_AND_GREEN_SHADER_MATERIAL = preload("res://shaders/RedAndGreenGlowShad
 
 signal attack_send
 
+remotesync func spawn_cocoon(cocoon_name: String, position_to_spawn: Vector2) -> void:
+	print_debug("EnemySpiderStateBossSpawningCocoon.gd - spawn_cocoon - spawning")
+	var enemy_to_spawn = preload("res://prefab/enemies/Spider_Cocoon.tscn").instance()
+	enemy_to_spawn.get_node("StateMachine").initial_state = "enemyattackingdistance"
+	enemy_to_spawn.player = player # Setting the player as the target of the cocoon
+	enemy_to_spawn.set_name(cocoon_name) # Ensuring same name in Server and Client
+	enemy_to_spawn.global_position = position_to_spawn
+	get_node("..").add_child(enemy_to_spawn)
+	enemy_to_spawn.connect("enemy_died", self, "_on_child_enemy_died")
+	number_of_cocoons_alive += 1
+
+
 func Enter():
 	print("EnemySpiderBossSpawningCocoon.gd - Enter - Entering EnemySpiderBossSpawningCocoon state") 
 
@@ -19,16 +31,23 @@ func Enter():
 	player = enemy.player
 
 	number_of_cocoons_alive = 0
-	# Spawning the cocoons
-	for spawn_position in enemy.get_node("SpawnCocoonPositions").get_children():
-		var enemy_to_spawn = preload("res://prefab/enemies/Spider_Cocoon.tscn").instance()
-		enemy_to_spawn.get_node("StateMachine").initial_state = "enemyattackingdistance"
-		enemy_to_spawn.player = player # Setting the player as the target of the cocoon
-		enemy_to_spawn.set_name("Cocoon_spawned_1")
-		enemy_to_spawn.global_position = spawn_position.global_position
-		get_node("..").add_child(enemy_to_spawn)
-		enemy_to_spawn.connect("enemy_died", self, "_on_child_enemy_died")
-		number_of_cocoons_alive += 1
+
+	if EventBus.is_in_network_mode():
+		if is_network_master():
+			# Spawning the cocoons from the servers to all the clients in network mode
+			for spawn_position in enemy.get_node("SpawnCocoonPositions").get_children():
+				var cocoon_name = "Cocoon_spawned_" + str(randi())
+				var position_to_spawn = spawn_position.global_position
+				rpc("spawn_cocoon", cocoon_name, position_to_spawn) # Spawning the enemy from the server
+	else:
+		# Spawning the cocoons for testing local mode
+		for spawn_position in enemy.get_node("SpawnCocoonPositions").get_children():
+			var cocoon_name = "Cocoon_spawned_" + str(randi())
+			var position_to_spawn = spawn_position.global_position
+			spawn_cocoon(cocoon_name, position_to_spawn)
+
+
+
 
 	# Load the shader material
 	enemy.get_node("Sprite").material = INVINSIBLE_SHADER_MATERIAL

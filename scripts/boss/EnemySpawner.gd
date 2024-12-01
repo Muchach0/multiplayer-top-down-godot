@@ -24,11 +24,11 @@ func get_closer_spawn_point(position_player: Vector2) -> Vector2:
 			closest_spawn_point = spawn_point.global_position
 	return closest_spawn_point
 
-remotesync func spawn_ennemy():
-	print_debug("EnemySpawner.gd - spawn_ennemy() - spawning an ennemy")
+remotesync func spawn_ennemy(spider_name: String, position_player: Vector2) -> void:
+	print_debug("EnemySpawner.gd - spawn_ennemy() - spawning an ennemy: ", spider_name, " - at - ", position_player)
 	var enemy_to_spawn = preload("res://prefab/enemies/Spider_1.tscn").instance()
-	enemy_to_spawn.set_name("Spider_spawned_1")
-	enemy_to_spawn.global_position = get_closer_spawn_point(player.global_position)
+	enemy_to_spawn.set_name(spider_name) # Ensuring same name in Server and Client
+	enemy_to_spawn.global_position = get_closer_spawn_point(position_player)
 	get_node("..").add_child(enemy_to_spawn)
 
 
@@ -42,11 +42,12 @@ func attack_landed():
 func _on_EnemyAttackingDistance_attack_send(_player_direction: Vector2, _position_player: Vector2) -> void:
 	print_debug("EnemySpawner.gd - attack - attacking")
 	
+	var spider_name = "SpiderSpawned_" + str(randi()) # Generating a random name for the spider spawned
 	if EventBus.is_in_network_mode():
 		if is_network_master():
-			rpc("spawn_ennemy") # Spawning the enemy from the server
+			rpc("spawn_ennemy", spider_name, player.global_position) # Spawning the enemy from the server
 	else:
-		spawn_ennemy()
+		spawn_ennemy(spider_name, player.global_position)
 	
 	attack_landed()
 

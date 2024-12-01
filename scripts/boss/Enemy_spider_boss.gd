@@ -17,17 +17,23 @@ func attack_landed():
 	# hitbox_collision_shape.disabled = true
 	timer_attack_cooldown.start()
 
+# Transition the scene from the server
+remotesync func transition_to_spawning_cocoon(player_to_attack: KinematicBody2D):
+	print_debug("Enemy_spider_boss.gd - transition_to_spawning_cocoon - transitioning to spawning cocoon")
+	player = player_to_attack
+	is_spell2_attack_on_cooldown = true
+	timer_attack_cooldown_spell_2.start()
+	$StateMachine.current_state.emit_signal("transitioned", $StateMachine.current_state, "EnemySpiderStateBossSpawningCocoon")
 
 
 func attack_spell_2_spawn_cocoon(_player_direction: Vector2) -> void:
-	print_debug("Enemy_spider_boss.gd - attack_spell_1 - attacking with spell 1")
+	print_debug("Enemy_spider_boss.gd - attack_spell_2_spawn_cocoon")
 	# emit_signal("transitioned", self, "EnemySpiderStateBossSpawningCocoon")
-
-	is_spell2_attack_on_cooldown = true
-	timer_attack_cooldown_spell_2.start()
-
-	$StateMachine.current_state.emit_signal("transitioned", $StateMachine.current_state, "EnemySpiderStateBossSpawningCocoon")
-
+	if EventBus.is_in_network_mode():
+		if is_network_master():
+			rpc("transition_to_spawning_cocoon", player) # Spawning the enemy from the server
+	else:
+		transition_to_spawning_cocoon(player)
 
 	# animation_player_action_enemy.stop(true)
 	# animation_player_action_enemy.play("Spell1")

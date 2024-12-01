@@ -8,7 +8,7 @@ var direction_player: Vector2
 signal attack_send
 
 func Enter():
-	print("EnemyAttackingDistance.gd - Enter - Entering EnemyAttackingDistance state") 
+	print("EnemyAttackingDistance.gd - Enter - Entering EnemyAttackingDistance state: ", String(get_name())) 
 	enemy = get_parent().get_parent() # Getting the grand-parent of the script, i.e. the KinematicBody2D node to move it
 	player = enemy.player
 	# Check if we are already connected to the signal: 

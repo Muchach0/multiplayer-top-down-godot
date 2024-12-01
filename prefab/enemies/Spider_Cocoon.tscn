@@ -120,7 +120,7 @@ length = 1.5
 loop = true
 
 [sub_resource type="CircleShape2D" id=15]
-radius = 725.069
+radius = 1001.17
 
 [node name="Enemy" type="KinematicBody2D"]
 scale = Vector2( 0.6, 0.6 )
@@ -191,6 +191,7 @@ wait_time = 4.0
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource( 15 )
 
 [node name="StateMachine" type="Node" parent="."]

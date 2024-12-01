@@ -91,11 +91,16 @@ func get_joystick_motion_from_inputs() -> Vector2:
 func get_position_nearest_class_in_the_area(class_to_identify):
 	# check if there is an enemy in the area Area2DAttackRangeForMobile:
 	var bodies = area_2d_ranged_attack_for_mobile.get_overlapping_bodies()
+	var closest_point = null
+	var closest_distance = INF # Infinity - very large number for initialization
 	print_debug("player.gd - get_nearest_enemy_in_the_area - bodies: ", bodies)
 	for body in bodies:
 		if body is class_to_identify:
-			return body.position
-	return null
+			var distance = global_position.distance_to(body.global_position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_point = body.global_position
+	return closest_point
 
 # Function to handle the inputs of the player (master or locally)
 func handle_inputs_master():

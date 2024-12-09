@@ -5,13 +5,12 @@ FROM ubuntu:24.10
 
 WORKDIR /opt
 
+COPY builds /opt
+
 RUN  apt-get update \
-  && apt-get install -y wget \
   && apt-get install -y zip \
-  && wget https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_linux_server.64.zip \
   && unzip Godot_v3.5.1-stable_linux_server.64.zip -d /opt
 
-COPY builds /opt
 
 # Expose the TCP port for client to contact the server
 EXPOSE 10567/tcp
